@@ -50,39 +50,47 @@ if(isset($_POST["btn_submit"]))
 }
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Change Password</title>
-</head>
-
-<body>
-<h3>Change Password</h3>
-<form id="form1" name="form1" method="post" action="">
-  <table width="400" border="1" cellpadding="5">
-    <tr>
-      <td width="150">Current Password</td>
-      <td><input type="password" name="txt_password" id="txt_password" required /></td>
-    </tr>
-    <tr>
-      <td>New Password</td>
-      <td><input type="password" name="txt_newpassword" id="txt_newpassword" required /></td>
-    </tr>
-    <tr>
-      <td>Confirm New Password</td>
-      <td><input type="password" name="txt_repassword" id="txt_repassword" required /></td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center">
-        <input type="submit" name="btn_submit" id="btn_submit" value="Update Password" />
-      </td>
-    </tr>
-  </table>
-</form>
-</body>
-</html>
+<div class="container change-password-container">
+    <h3 class="text-center">Change Password</h3>
+    <form id="form1" name="form1" method="post" action="" class="change-password-form">
+        <div class="form-group">
+            <label for="txt_password">Current Password</label>
+            <input type="password" name="txt_password" id="txt_password" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="txt_newpassword">New Password</label>
+            <input type="password" name="txt_newpassword" id="txt_newpassword" class="form-control" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" />
+        </div>
+        <div class="form-group">
+            <label for="txt_repassword">Confirm New Password</label>
+            <input type="password" name="txt_repassword" id="txt_repassword" class="form-control" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" />
+        </div>
+        <div class="form-group text-center">
+            <input type="submit" name="btn_submit" id="btn_submit" value="Update Password" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+<style>
+    .change-password-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+    .change-password-form .form-group {
+        margin-bottom: 20px;
+    }
+    .change-password-form label {
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    .change-password-form .btn-primary {
+        padding: 10px 20px;
+        border-radius: 5px;
+    }
+</style>
 
 <?php
 include('Foot.php');

@@ -38,49 +38,61 @@ $result = $con->query($selQry);
 $data = $result->fetch_assoc();
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Edit Profile</title>
-</head>
-
-<body>
-<h3>Edit Profile</h3>
-<form id="form1" name="form1" method="post" enctype="multipart/form-data">
-  <table width="400" border="1" cellpadding="5">
-    <tr>
-      <td colspan="2" align="center">
-        <img src="../Assets/Files/Student/Photo/<?php echo $data['student_photo'] ?>" width="120" height="120" alt="Profile Photo" />
-      </td>
-    </tr>
-    <tr>
-      <td width="150">Name</td>
-      <td><input type="text" name="txt_name" id="txt_name" value="<?php echo $data['student_name'] ?>" required /></td>
-    </tr>
-    <tr>
-      <td>Email</td>
-      <td><input type="email" name="txt_email" id="txt_email" value="<?php echo $data['student_email'] ?>" required /></td>
-    </tr>
-    <tr>
-      <td>Roll Number</td>
-      <td><input type="text" name="txt_roll" id="txt_roll" value="<?php echo $data['student_rollno'] ?>" required /></td>
-    </tr>
-    <tr>
-      <td>Update Photo</td>
-      <td><input type="file" name="file_photo" id="file_photo" /></td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center">
-        <input type="submit" name="btn_submit" id="btn_submit" value="Update" />
-        <input type="reset" name="btn_reset" id="btn_reset" value="Reset" />
-      </td>
-    </tr>
-  </table>
-</form>
-</body>
-</html>
+<div class="container edit-profile-container">
+    <h3 class="text-center">Edit Profile</h3>
+    <form id="form1" name="form1" method="post" enctype="multipart/form-data" class="edit-profile-form">
+        <div class="text-center mb-4">
+            <img src="../Assets/Files/Student/Photo/<?php echo $data['student_photo'] ?>" class="profile-photo-edit" alt="Profile Photo" />
+        </div>
+        <div class="form-group">
+            <label for="txt_name">Name</label>
+            <input type="text" name="txt_name" id="txt_name" class="form-control" value="<?php echo $data['student_name'] ?>" required title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter" pattern="^[A-Z]+[a-zA-Z ]*$" />
+        </div>
+        <div class="form-group">
+            <label for="txt_email">Email</label>
+            <input type="email" name="txt_email" id="txt_email" class="form-control" value="<?php echo $data['student_email'] ?>" required />
+        </div>
+        <div class="form-group">
+            <label for="txt_roll">Roll Number</label>
+            <input type="text" name="txt_roll" id="txt_roll" class="form-control" value="<?php echo $data['student_rollno'] ?>" required />
+        </div>
+        <div class="form-group">
+            <label for="file_photo">Update Photo</label>
+            <input type="file" name="file_photo" id="file_photo" class="form-control-file" />
+        </div>
+        <div class="form-group text-center">
+            <input type="submit" name="btn_submit" id="btn_submit" value="Update" class="btn btn-primary" />
+            <input type="reset" name="btn_reset" id="btn_reset" value="Reset" class="btn btn-secondary" />
+        </div>
+    </form>
+</div>
+<style>
+    .edit-profile-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+    .edit-profile-form .form-group {
+        margin-bottom: 20px;
+    }
+    .edit-profile-form label {
+        font-weight: 600;
+    }
+    .profile-photo-edit {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #eee;
+    }
+    .form-control-file {
+        display: block;
+        width: 100%;
+    }
+</style>
 
 <?php
 include('Foot.php');

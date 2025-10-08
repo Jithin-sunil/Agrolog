@@ -23,62 +23,95 @@ if(isset($_POST['btn_submit']))
 }
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Complaint</title>
-</head>
-
-<body>
-<form id="form1" name="form1" method="post" action="">
-  <table width="400" border="1" cellpadding="5">
-    <tr>
-      <td width="150">Title</td>
-      <td><input type="text" name="complaint_title" id="complaint_title" required /></td>
-    </tr>
-    <tr>
-      <td>Content</td>
-      <td><textarea name="complaint_content" id="complaint_content" cols="45" rows="5" required></textarea></td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center">
-        <input type="submit" name="btn_submit" id="btn_submit" value="Send" />
-      </td>
-    </tr>
-  </table>
-
-  <br />
-
-  <table width="800" border="1" cellpadding="5">
-    <tr>
-      <th>#</th>
-      <th>Title</th>
-      <th>Content</th>
-      <th>Reply</th>
-    </tr>
-    <?php 
-    $selQry = "SELECT * FROM tbl_complaint WHERE student_id = ".$_SESSION['sid'];
-    $i = 0;
-    $result = $con->query($selQry);
-    while($row = $result->fetch_assoc())
-    {
-        $i++;
-    ?>
-    <tr>
-      <td><?php echo $i; ?></td>
-      <td><?php echo $row["complaint_title"]; ?></td>
-      <td><?php echo $row["complaint_content"]; ?></td>
-      <td><?php echo $row["complaint_reply"]; ?></td>
-    </tr>
-    <?php
+<div class="container complaint-container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card complaint-form-card">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">Submit a Complaint</h4>
+                </div>
+                <div class="card-body">
+                    <form id="form1" name="form1" method="post" action="">
+                        <div class="form-group">
+                            <label for="complaint_title">Title</label>
+                            <input type="text" name="complaint_title" id="complaint_title" class="form-control" required  />
+                        </div>
+                        <div class="form-group">
+                            <label for="complaint_content">Content</label>
+                            <textarea name="complaint_content" id="complaint_content" class="form-control" rows="5" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <input type="submit" name="btn_submit" id="btn_submit" value="Send" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card complaint-history-card">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">Complaint History</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Content</th>
+                                    <th>Reply</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
+                                $selQry = "SELECT * FROM tbl_complaint WHERE student_id = ".$_SESSION['sid'];
+                                $i = 0;
+                                $result = $con->query($selQry);
+                                while($row = $result->fetch_assoc())
+                                {
+                                    $i++;
+                                ?>
+                                <tr>
+                                    <td><?php echo $i; ?></td>
+                                    <td><?php echo $row["complaint_title"]; ?></td>
+                                    <td><?php echo $row["complaint_content"]; ?></td>
+                                    <td><?php echo $row["complaint_reply"] ? $row["complaint_reply"] : 'No reply yet'; ?></td>
+                                </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .complaint-container {
+        padding-bottom: 50px;
     }
-    ?>
-  </table>
-</form>
-</body>
-</html>
+    .complaint-form-card, .complaint-history-card {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+    }
+    .card-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+    }
+    .card-title {
+        font-weight: 600;
+    }
+    .complaint-form-card .form-group {
+        margin-bottom: 1.5rem;
+    }
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
 
 <?php
 include('Foot.php');
